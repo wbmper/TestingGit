@@ -3,9 +3,7 @@
 int add(int a, int b)
 {
     int c = 10;
-
-    while (true)
-    {
+    while (true) {
         c = 10;
     }
 
