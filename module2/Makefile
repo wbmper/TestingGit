@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++98 -Wall -c
 
-all: add.o  # 또는 sub.o
+all: sub.o  # 또는 sub.o
 
-add.o: add.cpp add.h
-	$(CXX) $(CXXFLAGS) add.cpp
+sub.o: sub.cpp sub.h
+	$(CXX) $(CXXFLAGS) sub.cpp
