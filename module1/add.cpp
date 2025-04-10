@@ -1,6 +1,6 @@
 #include "add.h"
 
 int add(int a, int b) {
-    int c = 4;
+    int c = 5;
     return a + b;
 }
