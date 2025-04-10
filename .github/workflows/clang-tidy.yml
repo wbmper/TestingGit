@@ -1,4 +1,4 @@
-name: Clang-Tidy PR Bot (TEST GitHub Runner)
+name: Clang-Tidy Inline Comments (with reviewdog)
 
 on:
   pull_request_target:
@@ -7,35 +7,30 @@ on:
 permissions:
   pull-requests: write
 
-
 jobs:
   clang-tidy:
-    runs-on: ubuntu-latest  # ← GitHub 제공 runner 
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout PR source
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.ref }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-    - name: Ensure tools are installed
+    - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y clang-tidy bear python3
+        sudo apt update
+        sudo apt install -y clang-tidy bear
 
-    - name: Grant execute permission to build.sh
-      run: chmod +x ./build.sh
+    - name: Build with bear
+      run: bear -- ./build.sh
 
-    - name: Run build with bear
-      run: |
-        bear -- ./build.sh
-
-    - name: Run clang-tidy and report via reviewdog
-      uses: reviewdog/action-tidy@v1
+    - name: Run clang-tidy with reviewdog
+      uses: reviewdog/action-clang-tidy@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: github-pr-review
-        fail_on_error: false
         filter_mode: diff_context
+        fail_on_error: false
         clang_tidy_flags: '-p . -extra-arg=-std=c++98'
