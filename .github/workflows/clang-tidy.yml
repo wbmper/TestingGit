@@ -7,6 +7,9 @@ on:
       - '**/*.cpp'
       - '**/*.h'
 
+permissions:
+  pull-requests: write
+
 jobs:
   clang-tidy:
     runs-on: ubuntu-latest
