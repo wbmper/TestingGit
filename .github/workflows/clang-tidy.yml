@@ -31,7 +31,7 @@ jobs:
         bear -- ./build.sh
 
     - name: Run clang-tidy and report via reviewdog
-      uses: reviewdog/action-clang-tidy@v1
+      uses: reviewdog/action-tidy@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: github-pr-review
