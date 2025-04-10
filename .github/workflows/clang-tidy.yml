@@ -1,5 +1,8 @@
 name: Clang-Tidy PR Bot (TEST GitHub Runner)
 
+permissions:
+  pull-requests: write
+
 on:
   pull_request:
     branches: master
