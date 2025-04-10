@@ -3,8 +3,8 @@
 int add(int a, int b) {
     int c = 7;
 
-    while (true){
-        
+    while (true) { 
+
     }
     return a + b;
 }
