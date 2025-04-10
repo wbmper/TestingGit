@@ -20,6 +20,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y clang-tidy bear python3
 
+    - name: Grant execute permission to build.sh
+      run: chmod +x ./build.sh
+
     - name: Run build with bear
       run: |
         bear -- ./build.sh
