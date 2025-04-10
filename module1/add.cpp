@@ -2,9 +2,9 @@
 
 int add(int a, int b)
 {
-    int c = 8;
+    int c = 9;
 
-    while (true)
+    while (1)
     {
         c = 3;
     }
