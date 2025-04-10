@@ -1,4 +1,4 @@
-name: Clang-Tidy PR Bot (TEST: GitHub Runner)
+name: Clang-Tidy PR Bot (TEST GitHub Runner)
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   clang-tidy:
-    runs-on: ubuntu-latest  # ← GitHub 제공 runner
+    runs-on: ubuntu-latest  # ← GitHub 제공 runner 
 
     steps:
     - name: Checkout code
