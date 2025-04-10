@@ -2,7 +2,7 @@ name: Clang-Tidy PR Bot (Markdown Comment)
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [master]
     paths:
       - '**/*.cpp'
       - '**/*.h'
