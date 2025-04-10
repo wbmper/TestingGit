@@ -2,11 +2,11 @@
 
 int add(int a, int b)
 {
-    int c = 9;
+    int c = 10;
 
-    while (1)
+    while (true)
     {
-        c = 3;
+        c = 10;
     }
 
     return a + b;
