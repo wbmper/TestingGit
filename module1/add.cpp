@@ -1,10 +1,13 @@
 #include "add.h"
 
-int add(int a, int b) {
-    int c = 7;
+int add(int a, int b)
+{
+    int c = 8;
 
-    while (true) { 
-
+    while (true)
+    {
+        c = 3;
     }
+
     return a + b;
 }
