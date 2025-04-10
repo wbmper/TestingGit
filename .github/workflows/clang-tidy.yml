@@ -30,15 +30,11 @@ jobs:
       run: |
         bear -- ./build.sh
 
-    - name: Run clang-tidy (C++98)
-      run: |
-        clang-tidy -p . $(find . -name '*.cpp') > clang-tidy-raw.txt || true
-
-    - name: Format output into friendly markdown
-      run: |
-        python3 .github/scripts/format_tidy_report.py clang-tidy-raw.txt > clang-tidy-report.md
-
-    - name: Comment on PR
-      uses: marocchino/sticky-pull-request-comment@v2
+    - name: Run clang-tidy and report via reviewdog
+      uses: reviewdog/action-clang-tidy@v1
       with:
-        path: clang-tidy-report.md
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        reporter: github-pr-review
+        fail_on_error: false
+        filter_mode: diff_context
+        clang_tidy_flags: '-p . -extra-arg=-std=c++98'
