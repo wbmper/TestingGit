@@ -1,36 +1,40 @@
-name: Clang-Tidy Inline Comments (with reviewdog)
+name: Clang-Tidy PR Bot (Markdown Comment)
 
 on:
-  pull_request_target:
-    branches: master
-
-permissions:
-  pull-requests: write
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '**/*.cpp'
+      - '**/*.h'
 
 jobs:
   clang-tidy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout PR source
+    - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-    - name: Install dependencies
+    - name: Ensure tools are installed
       run: |
-        sudo apt update
-        sudo apt install -y clang-tidy bear
+        sudo apt-get update
+        sudo apt-get install -y clang-tidy bear python3
 
-    - name: Build with bear
+    - name: Grant execute permission to build.sh
+      run: chmod +x ./build.sh
+
+    - name: Run build with bear
       run: bear -- ./build.sh
 
-    - name: Run clang-tidy with reviewdog
-      uses: reviewdog/action-clang-tidy@v1
+    - name: Run clang-tidy (C++98)
+      run: |
+        clang-tidy -p . $(find . -name '*.cpp') -extra-arg=-std=c++98 > clang-tidy-raw.txt || true
+
+    - name: Format output into markdown
+      run: |
+        python3 .github/scripts/format_tidy_report.py clang-tidy-raw.txt > clang-tidy-report.md
+
+    - name: Comment on PR
+      uses: marocchino/sticky-pull-request-comment@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        reporter: github-pr-review
-        filter_mode: diff_context
-        fail_on_error: false
-        clang_tidy_flags: '-p . -extra-arg=-std=c++98'
+        path: clang-tidy-report.md
