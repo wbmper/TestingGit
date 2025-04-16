@@ -5,3 +5,8 @@ all: add.o  # 또는 sub.o
 
 add.o: add.cpp add.h
 	$(CXX) $(CXXFLAGS) add.cpp
+
+.PHONY: clean
+
+clean:
+	rm -f *.o

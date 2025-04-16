@@ -5,3 +5,8 @@ all: sub.o  # 또는 sub.o
 
 sub.o: sub.cpp sub.h
 	$(CXX) $(CXXFLAGS) sub.cpp
+
+.PHONY: clean
+
+clean:
+	rm -f *.o
